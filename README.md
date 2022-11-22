@@ -9,7 +9,7 @@ Plugin prevent mixing packages using both private and public mirrors at the same
 ## Installation
 
 ```sh
-pip install devpi-private-base
+pip install devpi-private-mirrors
 ```
 
 There is no configuration needed as devpi-server will automatically discover the plugin
