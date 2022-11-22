@@ -1,5 +1,9 @@
 # devpi-private-mirrors
 
+[![PyPI version shields.io](https://img.shields.io/pypi/v/devpi-private-mirrors.svg)](https://pypi.python.org/pypi/devpi-private-mirrors/)
+[![PyPI pyversions](https://img.shields.io/pypi/pyversions/devpi-private-mirrors.svg)](https://pypi.python.org/pypi/devpi-private-mirrors/)
+[![PyPI download month](https://img.shields.io/pypi/dm/devpi-private-mirrors.svg)](https://pypi.python.org/pypi/devpi-private-mirrors/)
+
 Plugin prevent mixing packages using both private and public mirrors at the same time.
 
 ## Installation
