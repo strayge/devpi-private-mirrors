@@ -1,0 +1,105 @@
+[project]
+name = "devpi-private-mirrors"
+dynamic = ["version"]
+description = "devpi plugin prevent mixing packages using both private and public mirrors"
+readme = "README.md"
+license = {text = "MIT"}
+urls.repository = "https://github.com/strayge/devpi-private-mirror"
+authors = [
+    {name = "strayge", email = "strayge@gmail.ru"},
+]
+classifiers = [
+        "Development Status :: 4 - Beta",
+        "Intended Audience :: Developers",
+        "Intended Audience :: System Administrators",
+        "Natural Language :: English",
+        "Environment :: Plugins",
+        "License :: OSI Approved :: MIT License",
+        "Programming Language :: Python :: 3",
+        "Programming Language :: Python :: 3.10",
+        "Topic :: Software Development :: Libraries",
+        "Topic :: Utilities",
+]
+requires-python = ">=3.10"
+
+dependencies = [
+    "devpi-server",
+]
+
+optional-dependencies.dev = [
+    "flake8-pyproject",
+    "flake8-commas",
+    "flake8-isort !=5.0.1, !=5.0.2",
+    "flake8-bugbear",
+    "flake8-simplify",
+    "flake8-print",
+    "flake8-debugger",
+    "flake8-hangover",
+    "isort",
+    "mypy",
+]
+
+[project.entry-points.devpi_server]
+devpi-constrained = "devpi_private_mirrors.main"
+
+[build-system]
+requires = ["pdm-pep517>=1.0.0"]
+build-backend = "pdm.pep517.api"
+
+[tool.pdm.version]
+source = "scm"
+
+[tool.flake8]
+exclude = [
+    ".git",
+    ".idea",
+    "__pycache__",
+    "venv",
+]
+max-line-length = 100
+ignore = [
+    # trailing comma prohibited, like (x, y,)
+    "C819",
+    # line break before binary operator
+    "W503",
+    # enumerate instead of +=1 in for (not count for var increment at other places)
+    "SIM113",
+    # nested if's instead of single complex if (sometimes it increase readability)
+    "SIM102",
+    # error handle should be first to prevent another nested (too many false positives)
+    "SIM106",
+    # dataclasses instead of simple classes (too broad reports)
+    "SIM119",
+    # combine if's branches with same body (false positive, sometimes decrease readability)
+    "SIM114",
+    # use any(...), all(...) instead of actual loop - not *required* functional codestyle
+    "SIM110", "SIM111",
+    # dictionary lookup for 3+ if's
+    "SIM116",
+]
+per-file-ignores = [
+    # unused imports
+    "*/__init__.py:F401",
+]
+
+[tool.mypy]
+exclude = ["tests"]
+namespace_packages = true
+disable_error_code = "attr-defined"
+ignore_missing_imports = true
+disallow_untyped_calls = true
+disallow_untyped_defs = true
+disallow_incomplete_defs = true
+check_untyped_defs = true
+disallow_untyped_decorators = true
+warn_return_any = true
+warn_unreachable = true
+
+[tool.isort]
+line_length = 100
+multi_line_output = 3
+sections = ["FUTURE", "STDLIB", "THIRDPARTY", "FIRSTPARTY", "LOCALFOLDER"]
+include_trailing_comma = true
+force_grid_wrap = 2
+combine_as_imports = true
+use_parentheses = true

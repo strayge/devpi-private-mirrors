@@ -1,0 +1,22 @@
+name: deps
+inputs:
+  python-version:
+    description: 'python version'
+    required: true
+runs:
+  using: composite
+  steps:
+    - name: python setup
+      uses: actions/setup-python@v4
+      id: python
+      with:
+        python-version: ${{ inputs.python-version }}
+        cache: pip
+        cache-dependency-path: pyproject.toml
+    - name: dependencies
+      # use magic while waiting --only-deps option in pip: https://github.com/pypa/pip/issues/11440
+      run: |
+        pip install tomli && python -c 'import tomli; f = open("pyproject.toml", "rb");
+        p = tomli.load(f); print("\n".join(p["project"]["optional-dependencies"]["dev"]))' |
+        pip install -r /dev/stdin
+      shell: bash
